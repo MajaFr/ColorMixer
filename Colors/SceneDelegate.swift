@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Colors
 //
-//  Created by Marzena Frąk on 10/04/2022.
+//  Created by Maja Frąk on 10/04/2022.
 //
 
 import UIKit

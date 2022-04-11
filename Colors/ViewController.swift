@@ -2,30 +2,37 @@
 //  ViewController.swift
 //  Colors
 //
-//  Created by Marzena Frąk on 10/04/2022.
+//  Created by Maja Frąk on 10/04/2022.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet weak var sliderRed: UISlider!
     @IBOutlet weak var sliderGreen: UISlider!
     @IBOutlet weak var sliderBlue: UISlider!
-    
     @IBOutlet weak var colorView: UIView!
-    
     @IBOutlet weak var oppositeColorView: UIView!
     
+    let colorStorage = ColorStorage()
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        let currentValue1 = CGFloat(sliderRed.value)
-        let currentValue2 = CGFloat(sliderGreen.value)
-        let currentValue3 = CGFloat(sliderBlue.value)
+       setViewColors()
+    }
+    
+    @IBAction func loadButtonTapped(_ sender: UIButton) {
+        let colors = colorStorage.getColors()
         
-        colorMix(red: currentValue1, green: currentValue2, blue: currentValue3)
-        setShadowColor(red: currentValue1, green: currentValue2, blue: currentValue3)
+        sliderRed.value = colors.red
+        sliderGreen.value = colors.green
+        sliderBlue.value = colors.blue
+
+        setViewColors()
+    }
+    
+    @IBAction func saveButtonTaped(_ sender: UIButton) {
+        colorStorage.saveColors(red: sliderRed.value, green: sliderGreen.value, blue: sliderBlue.value)
     }
     
     override func viewDidLoad() {
@@ -34,6 +41,15 @@ class ViewController: UIViewController {
         [colorView, oppositeColorView].forEach {
             setUpCircleView(view: $0)
         }
+    }
+    
+    func setViewColors() {
+        let currentValue1 = CGFloat(sliderRed.value)
+        let currentValue2 = CGFloat(sliderGreen.value)
+        let currentValue3 = CGFloat(sliderBlue.value)
+        
+        colorMix(red: currentValue1, green: currentValue2, blue: currentValue3)
+        setShadowColor(red: currentValue1, green: currentValue2, blue: currentValue3)
     }
     
     func colorMix(red: CGFloat, green: CGFloat, blue: CGFloat) {
